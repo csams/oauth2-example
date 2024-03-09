@@ -22,11 +22,11 @@ well_known_endpoint = (
     f"{auth_server}/auth/realms/{realm}/.well-known/openid-configuration"
 )
 
-client_id = os.environ.get("CLIENT_ID", "rhdh")
+client_id = os.environ.get("CLIENT_ID", "frontend")
 client_secret = os.environ.get("CLIENT_SECRET")
 
 redirect_uri = "http://localhost:5000/callback"
-webrca_endpoint = "http://localhost:6000/api/incidents"
+backend_endpoint = "http://localhost:6000/api/incidents"
 
 log = logging.getLogger(__name__)
 
@@ -182,13 +182,13 @@ def create_app():
     @protected
     def incidents():
         """
-        When we want to talk to webrca, the user will have granted us the right to do so through an access
-        token.  We pass it to webrca as a bearer token.
+        When we want to talk to the backend, the user will have granted us the right to do so through an access
+        token.  We pass it to the backend as a bearer token.
         """
         id_token = session["id-token"]["payload"]
         access_token = session["access-token"]
         headers = {"Authorization": f"Bearer {access_token}"}
-        events = requests.get(webrca_endpoint, headers=headers).json()
+        events = requests.get(backend_endpoint, headers=headers).json()
         return render_template("incidents.html", incidents=events, user=id_token)
 
     @app.route("/view-tokens")

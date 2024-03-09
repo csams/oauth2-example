@@ -14,7 +14,7 @@ well_known_endpoint = (
     f"{auth_server}/auth/realms/{realm}/.well-known/openid-configuration"
 )
 
-client_id = os.environ.get("CLIENT_ID", "webrca")
+client_id = os.environ.get("CLIENT_ID", "backend")
 client_secret = os.environ.get("CLIENT_SECRET")
 
 database = {

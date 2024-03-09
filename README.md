@@ -9,27 +9,27 @@ The [Keycloak Using Quarkus playlist](https://youtube.com/playlist?list=PLHXvj3c
 This project assumes you have a [Keycloak](https://www.keycloak.org/) instance running and a realm created.
 
 Once everything is working, when you access `http://localhost:5000` the first time, you will be redirected to
-Keycloak to login. After you login, you'll be redirected back to the app where you can view the `well-known`
+Keycloak to login.  After you login, you'll be redirected back to the app where you can view the `well-known`
 configuration of Keycloak, view `oidc`, `access`, and `refresh` tokens, and make a request to a backend
 service that requires an access token.
 
 To configure your realm for the app, follow these instructions:
 
-1. Create a client called `webrca` with client authentication enabled.
+1. Create a client called `backend` with client authentication enabled.
    1. Open the client options and create a `view` role for it.
-2. Create a client called `rhdh` with client authentication enabled.
+2. Create a client called `frontend` with client authentication enabled.
    1. Set the root and home URLs to `http://localhost:5000`.
    2. Set a valid redirect URI to `http://localhost:5000/callback`
-3. In the advanced settings for the `rhdh` client, set Proof Key for Code Exchange to use `S256`.
-4. Create a top level Client scope called `webrca:view` and add the `view` role from the `webrca` client to
+3. In the advanced settings for the `frontend` client, set Proof Key for Code Exchange to use `S256`.
+4. Create a client scope called `backend:view` in the realm and add the `view` role from the `backend` client to
    it.
-5. Add the `webrca:view` client scope to the `rhdh` client in Clients -> rhdh -> Client scopes.
-6. Create a user and add the `view` role from the `webrca` client to it.  Set a password for the user, turn
+5. Add the `backend:view` client scope to the `frontend` client in Clients -> frontend -> Client scopes.
+6. Create a user and add the `view` role from the `backend` client to it.  Set a password for the user, turn
    temporary password off, disable any requirements to verify email, etc.
-7. Create a `backstage.env` file similar to the example one in the repo root and fill in the values.  The
+7. Create a `frontend.env` file based on `frontend.example.env` in the repo root and fill in the values.  The
    authorization server is just the URL to your Keycloak instance.  The CLIENT_ID and CLIENT_SECRET are in the
    Settings and Credentials tabs of the client.
-8. Likewise, create a `webrca.env` file like `webrca.example.env` and fill in the blanks.
+8. Likewise, create a `backend.env` file based on `backend.example.env`.
 
 Make a python virtual environment, enable it, and install the requirements:
 ```bash
@@ -40,12 +40,12 @@ pip install -r requirements.txt
 
 Start the backend service like this:
 ```bash
-flask -e webrca.env -A webrca run -p 6000 --debug
+flask -e backend.env -A backend run -p 6000 --debug
 ```
 
 In a separate window start the frontend service like this:
 ```bash
-flask -e backstage.env -A backstage run -p 5000 --debug
+flask -e frontend.env -A frontend run -p 5000 --debug
 ```
 
-Browse to `http://localhost:5000`
+Browse to `http://localhost:5000` and login as the user you created in step 6 above.
