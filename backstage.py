@@ -78,7 +78,6 @@ def create_app():
         """
         This is a decorator to ensure only users who have logged in can access certain endpoints
         """
-
         @wraps(func)
         def inner(*args, **kwargs):
             if "id-token" not in session:
@@ -107,8 +106,8 @@ def create_app():
         Login starts here.  We redirect the user's browser to the authorization server and pass along some
         query parameters telling the auth server who we are (client_id), the response type we're looking for
         (we want a code we can exchange for an access token), the access we'd like so we can perform actions
-        on behalf of the user (scopes), and where to redirect the user's brower after they've logged in
-        (redirect_uri).  The state bit helps us tie the code request to the callback request.
+        on behalf of the user (scopes), and where to redirect the user's browser after they've logged in
+        (redirect_uri).  The state bit helps us tie the auth code request to the callback request.
         """
         state = b64encode(os.urandom(32)).decode("ascii").rstrip("=")
         session.clear()
@@ -129,13 +128,13 @@ def create_app():
     @app.route("/callback")
     def callback():
         """
-        The authorization server will have redirected the user's brower back to here with parameters
-        containing the authorization code.  We need to exchange it for an oidc token, authorization token, and
+        The authorization server will have redirected the user's browser back to here with parameters
+        containing the authorization code.  We need to exchange it for an oidc token, access token, and
         refresh token.
         """
         args = request.args
 
-        # is this a response to the request for a code we made in this session?
+        # is this the response to the request for an authorization code we made in this session?
         if args.get("state") != session.get("state"):
             log.error(f"State mismatch: {args.get('state')} != {session.get('state')}")
             return Response("<p>State mismatch</p>", 401)

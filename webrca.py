@@ -55,7 +55,7 @@ def create_app():
             return Response("Unauthorized", status=401)
 
         # The calling service requested a client scope that maps to a subset of the user's roles.  That subset
-        # is stored in the access token.  The client scope -> role association defined in Keycloak.
+        # is stored in the access token.  The client scope -> role association is defined in Keycloak.
         user = access_token["preferred_username"]
         roles = set(access_token["resource_access"].get(client_id, {}).get("roles", []))
 
