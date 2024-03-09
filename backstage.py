@@ -1,18 +1,17 @@
 import json
 import logging
-import requests
 import os
 import urllib
-
-from base64 import b64decode, urlsafe_b64encode as b64encode
+from base64 import b64decode
+from base64 import urlsafe_b64encode as b64encode
 from datetime import datetime, timedelta
 from functools import wraps
 from hashlib import sha256
 from pprint import pformat
 
 import jwt
-from flask import Flask, redirect, render_template, Response, request, session
-
+import requests
+from flask import Flask, Response, redirect, render_template, request, session
 
 auth_server = os.environ.get("AUTHORIZATION_SERVER")
 realm = urllib.parse.quote(os.environ.get("REALM", "Red Hat"))
@@ -78,6 +77,7 @@ def create_app():
         """
         This is a decorator to ensure only users who have logged in can access certain endpoints
         """
+
         @wraps(func)
         def inner(*args, **kwargs):
             if "id-token" not in session:
@@ -172,7 +172,11 @@ def create_app():
         """
         A simple landing page.
         """
-        return render_template("index.html", user=session["id-token"]["payload"], config=pformat(well_known))
+        return render_template(
+            "index.html",
+            user=session["id-token"]["payload"],
+            config=pformat(well_known),
+        )
 
     @app.route("/incidents")
     @protected
