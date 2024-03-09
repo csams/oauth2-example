@@ -26,6 +26,7 @@ To configure your realm for the app, follow these instructions:
 5. Add the `backend:view` client scope to the `frontend` client in Clients -> frontend -> Client scopes.
 6. Create a user and add the `view` role from the `backend` client to it.  Set a password for the user, turn
    temporary password off, disable any requirements to verify email, etc.
+   1. Update `data.json` in the root of the repo so one of the users matches the user you just created.
 7. Create a `frontend.env` file based on `frontend.example.env` in the repo root and fill in the values.  The
    authorization server is just the URL to your Keycloak instance.  The CLIENT_ID and CLIENT_SECRET are in the
    Settings and Credentials tabs of the client.

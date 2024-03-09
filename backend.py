@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 import os
@@ -17,11 +18,6 @@ well_known_endpoint = (
 client_id = os.environ.get("CLIENT_ID", "backend")
 client_secret = os.environ.get("CLIENT_SECRET")
 
-database = {
-    "csams": [{"id": 1, "name": "boom"}, {"id": 2, "name": "bang"}],
-    "psavage": [{"id": 3, "name": "kapow"}, {"id": 4, "name": "ruhroh"}],
-}
-
 
 def create_app():
     logging.basicConfig(level=logging.DEBUG)
@@ -29,6 +25,9 @@ def create_app():
     well_known = requests.get(well_known_endpoint).json()
     signing_algos = well_known["id_token_signing_alg_values_supported"]
     jwks_client = jwt.PyJWKClient(well_known["jwks_uri"])
+
+    with open("data.json") as f:
+        database = json.load(f)
 
     def decode_and_validate_token(raw_token):
         signing_key = jwks_client.get_signing_key_from_jwt(raw_token)
@@ -61,7 +60,9 @@ def create_app():
 
         # is "view" one of the roles the user has and that we've been authorized to exercise?
         if "view" not in roles:
-            return Response("User does not have the role required for this request", status=403)
+            return Response(
+                "User does not have the role required for this request", status=403
+            )
 
         return jsonify(database.get(user))
 
