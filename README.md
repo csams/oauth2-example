@@ -48,9 +48,10 @@ to adjust the table settings to show more than ten rows at a time.
 2. Create an OpenID Connect client called `backend` with client authentication enabled.
    1. Open the client and create a `view` role for it.
 3. Create an OpenID Connect client called `frontend` with client authentication enabled.
-   1. Set its root and home URLs to `http://localhost:5000`.
-   2. Set a valid redirect URI to `http://localhost:5000/callback`
-   3. In its advanced settings, set Proof Key for Code Exchange to `S256`.
+   1. Under Access settings, set the root and home URLs to `http://localhost:5000`.
+   2. Set a valid redirect URI to `http://localhost:5000/callback`.
+   3. Under Login settings, turn on "Consent required".
+   4. Under the Advanced tab, go to Advanced Settings and set Proof Key for Code Exchange to `S256`.
 4. In Client scopes create a realm level client scope called `backend:view`.
    1. Navigate to its "Scopes" tab and add the `view` role from the `backend` client to it.
    2. After clicking "Assign role" beware that you will need to select "Filter by clients" instead of "Filter
@@ -60,8 +61,8 @@ to adjust the table settings to show more than ten rows at a time.
 6. Create a user
    1. Don't select any required actions
    2. Say the email is already verified
-   2. Under Credentials set a password and turn temporary password off
-   3. Under Role mapping add the `view` role from the `backend` client
+   3. Under Credentials set a password and turn temporary password off
+   4. Under Role mapping add the `view` role from the `backend` client
       1. Again, you will have to change the filter from "Filter by Realm roles" to "Filter by clients" and may
          need to adjust the number of rows the table shows.
 7. Update `data.json` in the root of the repo so one of the users matches the user you just created.

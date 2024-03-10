@@ -20,10 +20,16 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-redhat" ],
+    "realmRoles" : [ "default-roles-myrealm" ],
     "clientRoles" : {
       "backend" : [ "view" ]
     },
+    "clientConsents" : [ {
+      "clientId" : "frontend",
+      "grantedClientScopes" : [ "backend:view", "email", "profile", "roles" ],
+      "createdDate" : 1710091517394,
+      "lastUpdatedDate" : 1710091517396
+    } ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -46,7 +52,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-redhat" ],
+    "realmRoles" : [ "default-roles-myrealm" ],
     "clientRoles" : {
       "backend" : [ "view" ]
     },
