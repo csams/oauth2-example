@@ -4,15 +4,17 @@ import requests
 import os
 import urllib
 
+from pprint import pprint
+
 import jwt
 
 from flask import Flask, request, Response, jsonify
 
-auth_server = os.environ.get("AUTHORIZATION_SERVER")
+auth_server = os.environ.get("AUTHORIZATION_SERVER").rstrip("/")
 realm = urllib.parse.quote(os.environ.get("REALM", "Red Hat"))
 
 well_known_endpoint = (
-    f"{auth_server}/auth/realms/{realm}/.well-known/openid-configuration"
+    f"{auth_server}/realms/{realm}/.well-known/openid-configuration"
 )
 
 client_id = os.environ.get("CLIENT_ID", "backend")

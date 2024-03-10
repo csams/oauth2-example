@@ -13,13 +13,13 @@ import jwt
 import requests
 from flask import Flask, Response, redirect, render_template, request, session
 
-auth_server = os.environ.get("AUTHORIZATION_SERVER")
+auth_server = os.environ.get("AUTHORIZATION_SERVER").rstrip("/")
 realm = urllib.parse.quote(os.environ.get("REALM", "Red Hat"))
 scope = urllib.parse.quote(os.environ.get("SCOPE", "profile roles openid"))
 
 # all of the authorization server endpoints and configuration we'll need live here
 well_known_endpoint = (
-    f"{auth_server}/auth/realms/{realm}/.well-known/openid-configuration"
+    f"{auth_server}/realms/{realm}/.well-known/openid-configuration"
 )
 
 client_id = os.environ.get("CLIENT_ID", "frontend")

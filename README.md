@@ -8,6 +8,12 @@ The [Keycloak Using Quarkus playlist](https://youtube.com/playlist?list=PLHXvj3c
 
 This project assumes you have a [Keycloak](https://www.keycloak.org/) instance running and a realm created.
 
+You can start a Keycloak instance like this:
+
+```bash
+podman run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.5-0 start-dev
+```
+
 Once everything is working, when you access `http://localhost:5000` the first time, you will be redirected to
 Keycloak to login.  After you login, you'll be redirected back to the app where you can view the `well-known`
 configuration of Keycloak, view `oidc`, `access`, and `refresh` tokens, and make a request to a backend
