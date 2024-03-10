@@ -11,7 +11,7 @@ import jwt
 from flask import Flask, request, Response, jsonify
 
 auth_server = os.environ.get("AUTHORIZATION_SERVER").rstrip("/")
-realm = urllib.parse.quote(os.environ.get("REALM", "Red Hat"))
+realm = urllib.parse.quote(os.environ.get("REALM", "MyRealm"))
 
 well_known_endpoint = (
     f"{auth_server}/realms/{realm}/.well-known/openid-configuration"
