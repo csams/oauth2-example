@@ -22,6 +22,8 @@ well_known_endpoint = (
     f"{auth_server}/realms/{realm}/.well-known/openid-configuration"
 )
 
+account_endpoint = f"{auth_server}/realms/{realm}/account/"
+
 client_id = os.environ.get("CLIENT_ID", "frontend")
 client_secret = os.environ.get("CLIENT_SECRET")
 
@@ -175,6 +177,7 @@ def create_app():
         return render_template(
             "index.html",
             user=session["id-token"]["payload"],
+            account_endpoint=account_endpoint,
             config=pformat(well_known),
         )
 

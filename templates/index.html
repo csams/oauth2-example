@@ -17,14 +17,17 @@
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col">
-            <h1>Welcome, {{user.given_name}}!</h1>
+            <a class="btn btn-primary m-2" href="/incidents">View Incidents</a>
+            <a class="btn btn-primary m-2" href="/view-tokens">View Tokens</a>
+            <a class="btn btn-primary m-2" href="{{account_endpoint}}"
+              >Manage Account</a
+            >
+            <a class="btn btn-primary m-2" href="/logout">Logout</a>
           </div>
         </div>
         <div class="row pt-2 justify-content-md-center">
           <div class="col">
-            <a class="btn btn-primary m-2" href="/incidents">View Incidents</a>
-            <a class="btn btn-primary m-2" href="/view-tokens">View Tokens</a>
-            <a class="btn btn-primary m-2" href="/logout">Logout</a>
+            <h1>Welcome, {{user.given_name}}!</h1>
           </div>
         </div>
         <div class="row pt-2 justify-content-md-center">
@@ -34,7 +37,7 @@
         </div>
         <div class="row pt-2 justify-content-md-center">
           <div class="col vh-100">
-            <pre class="overflow-auto" style="max-height: 80%;">{{config}}</pre>
+            <pre class="overflow-auto" style="max-height: 80%">{{config}}</pre>
           </div>
         </div>
       </div>
