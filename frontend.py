@@ -46,7 +46,7 @@ def create_app():
     def exchange_code_for_tokens(code):
         """
         Exchange an authorization code for a set of tokens (oidc, access and refresh). The `request_uri` is
-        required and must be the same as send in the original request that delivered the code even though
+        required and must be the same as sent in the original request that delivered the code even though
         keycloak isn't redirecting a browser back anywhere.
         """
         params = {
@@ -77,7 +77,7 @@ def create_app():
 
     def protected(func):
         """
-        This is a decorator to ensure only users who have logged in can access certain endpoints
+        This is a decorator to ensure only users who have logged in can access certain endpoints.
         """
 
         @wraps(func)
