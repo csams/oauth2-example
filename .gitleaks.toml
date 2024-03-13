@@ -1,0 +1,12 @@
+[allowlist]
+  description = "Global Allowlist"
+
+  paths = [
+    # The data in the realm is for learning and testing only.
+    '''realm\-data\/.*json$''',
+  ]
+
+  regexes = [
+    # The data in this repo is for learning and testing only.
+    '''CLIENT_SECRET''',
+  ]
