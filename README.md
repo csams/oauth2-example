@@ -39,6 +39,9 @@ Now, when you access <http://localhost:5000> the first time, you will be redirec
 of Keycloak, see the `oidc`, `access`, and `refresh` tokens, and make a request to the backend service that
 requires an access token.
 
+Note that the frontend script uses client side storage for sessions.  Use server side storage in a real
+application.
+
 # KeyCloak manual setup
 If you'd rather configure a realm manually, follow these instructions.  Beware that on Keycloak pages with
 tables (client scopes, roles, etc.), it's not obvious when more data exists than what's shown, so you may need

@@ -100,6 +100,7 @@ def create_app():
     app = Flask(__name__)
 
     # needed to generate session cookies sent back to the browser
+    # we use client side storage here, but a production setup should use server side storage
     app.secret_key = "random string"
 
     @app.route("/login")
